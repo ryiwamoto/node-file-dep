@@ -1,0 +1,23 @@
+{
+  "name": "node-file-dep",
+  "version": "0.0.1",
+  "description": "node-file-dep tracks dependencies between files in project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ryiwamoto/node-file-dep.git"
+  },
+  "author": "ryiwamoto <konnpekigan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryiwamoto/node-file-dep/issues"
+  },
+  "homepage": "https://github.com/ryiwamoto/node-file-dep",
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "simple-dependency-graph": "git+https://github.com/ryiwamoto/simple-dependency-graph"
+  }
+}
