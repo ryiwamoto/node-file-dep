@@ -1,12 +1,14 @@
 var path = require('path');
 var IncrementalCompileProject = require('../index.js').Project;
-var JSONParser = require('./json_parser.js');
+
+var jsonParser = function(filePath, fileContent){
+  return JSON.parse(fileContent);
+};
 
 describe("DependencyTracker", function () {
   describe('#addFile', function(){
-    it("call parser correctly", function(){
-      var parser = new JSONParser();
-      spyOn(parser, 'parse').andCallThrough();
+    it("call resolver correctly", function(){
+      var parser = jasmine.createSpy().andCallFake(jsonParser)
 
       var basePath = '.';
       var proj = new IncrementalCompileProject(parser, {basePath: basePath});
@@ -16,13 +18,11 @@ describe("DependencyTracker", function () {
       var fileContent = '["b.js", "c.js"]';
       proj.addFile(filePath, fileContent);
 
-      expect(parser.parse).toHaveBeenCalledWith(fileFullPath, fileContent);
+      expect(parser).toHaveBeenCalledWith(fileFullPath, fileContent);
     });
 
     it("add dependency correctly", function(){
-      var parser = new JSONParser();
-
-      var proj = new IncrementalCompileProject(parser);
+      var proj = new IncrementalCompileProject(jsonParser);
       var filePath = 'a.js';
       var fileFullPath = path.resolve('.', 'a.js');
       var fileContent = '["b.js", "c.js"]';
@@ -36,9 +36,7 @@ describe("DependencyTracker", function () {
     });
 
     it("thorw error if the file has been already added", function(){
-      var parser = new JSONParser();
-
-      var proj = new IncrementalCompileProject(parser);
+      var proj = new IncrementalCompileProject(jsonParser);
       var filePath = 'a.js';
       var fileContent = '["b.js", "c.js"]';
       proj.addFile(filePath, fileContent);
@@ -51,7 +49,7 @@ describe("DependencyTracker", function () {
 
   describe('#hasFile', function(){
     it('detect file existence correctly', function(){
-      var proj = new IncrementalCompileProject(new JSONParser());
+      var proj = new IncrementalCompileProject(jsonParser);
       var filePath = 'a.js';
       var fileFullPath = path.resolve('.', 'a.js');
       proj.addFile(filePath, '[]');
@@ -62,9 +60,7 @@ describe("DependencyTracker", function () {
 
   describe('#removeFile', function() {
     it("remove dependency correctly", function(){
-      var parser = new JSONParser();
-
-      var proj = new IncrementalCompileProject(parser);
+      var proj = new IncrementalCompileProject(jsonParser);
       var filePath = 'a.js';
       var fileContent = '["b.js", "c.js"]';
       proj.addFile(filePath, fileContent);
@@ -78,9 +74,7 @@ describe("DependencyTracker", function () {
     });
 
     it("throw error if the file has already been removed", function(){
-      var parser = new JSONParser();
-
-      var proj = new IncrementalCompileProject(parser);
+      var proj = new IncrementalCompileProject(jsonParser);
       var filePath = 'a.js';
       var fileContent = '["b.js", "c.js"]';
       proj.addFile(filePath, fileContent);
@@ -94,9 +88,7 @@ describe("DependencyTracker", function () {
 
   describe('#updateFile', function() {
     it("update dependency correctly", function(){
-      var parser = new JSONParser();
-
-      var proj = new IncrementalCompileProject(parser);
+      var proj = new IncrementalCompileProject(jsonParser);
 
       var fileAPath = 'a.js';
       var fileAFullPath = path.resolve('.', 'a.js');
