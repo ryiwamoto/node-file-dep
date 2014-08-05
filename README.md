@@ -25,7 +25,9 @@ var typescriptReferenceParser = function(filePath, fileContents){
 
 var proj = new Project(parser);
 
-proj.addFile('referenceAandB.ts', fs.readFileSync('referenceAandB.ts', {encoding: 'utf8'}));
+var filePath = './referenceAandB.ts';
+var fileContent = fs.readFileSync('referenceAandB.ts', {encoding: 'utf8'});
+proj.addFile(filePath, fileContent);
 
 var dependants = proj.getDependantsOf('c.js'); //return ['a.ts', 'b.ts']
 ```
