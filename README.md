@@ -13,9 +13,10 @@ referenceAandB.ts
 var Project = require('file-dep');
 
 var typescriptReferenceParser = function(filePath, fileContents){
+  var referencePattern = /^\/\/\/\s*<reference\s+path\s*=\s*('|")(.+?)\1.*?\/>/mg;
   var result = [],
     matched;
-  while((matched = /^\/\/\/\s*<reference\s+path\s*=\s*('|")(.+?)\1.*?\/>/mg.exec(fileContents)) !== null){
+  while((matched = referencePattern.exec(fileContents)) !== null){
     var fullPath = matched[2];
     result.push(fullPath);
   }
@@ -28,3 +29,10 @@ proj.addFile('referenceAandB.ts', fs.readFileSync('referenceAandB.ts', {encoding
 
 var dependants = proj.getDependantsOf('c.js'); //return ['a.ts', 'b.ts']
 ```
+
+## API
+- addFile(filePath, fileContent)
+- removeFile(filePath, fileContent)
+- updateFile(filePath, fileContent)
+- hasFile(filePath)
+- getDependantsOf(filePath)
