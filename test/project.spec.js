@@ -28,11 +28,11 @@ describe("DependencyTracker", function () {
       var fileContent = '["b.js", "c.js"]';
       proj.addFile(filePath, fileContent);
 
-      var dependantsOfB = proj.getDependantsOf('b.js');
-      expect(dependantsOfB).toEqual([fileFullPath]);
+      var dependentsOfB = proj.getDependentsOf('b.js');
+      expect(dependentsOfB).toEqual([fileFullPath]);
 
-      var dependantsOfC = proj.getDependantsOf('c.js');
-      expect(dependantsOfC).toEqual([fileFullPath]);
+      var dependentsOfC = proj.getDependentsOf('c.js');
+      expect(dependentsOfC).toEqual([fileFullPath]);
     });
 
     it("thorw error if the file has been already added", function(){
@@ -66,11 +66,11 @@ describe("DependencyTracker", function () {
       proj.addFile(filePath, fileContent);
       proj.removeFile(filePath);
 
-      var dependantsOfB = proj.getDependantsOf('b.js');
-      expect(dependantsOfB).toEqual([]);
+      var dependentsOfB = proj.getDependentsOf('b.js');
+      expect(dependentsOfB).toEqual([]);
 
-      var dependantsOfC = proj.getDependantsOf('c.js');
-      expect(dependantsOfC).toEqual([]);
+      var dependentsOfC = proj.getDependentsOf('c.js');
+      expect(dependentsOfC).toEqual([]);
     });
 
     it("throw error if the file has already been removed", function(){
@@ -104,11 +104,11 @@ describe("DependencyTracker", function () {
 
       proj.updateFile(fileAPath, '["b.js"]');
 
-      var dependants = proj.getDependantsOf(fileAPath);
-      expect(dependants).toEqual([fileBFullPath]);
+      var dependents = proj.getDependentsOf(fileAPath);
+      expect(dependents).toEqual([fileBFullPath]);
 
-      var dependants = proj.getDependantsOf(fileBPath);
-      expect(dependants).toEqual([fileAFullPath]);
+      var dependents = proj.getDependentsOf(fileBPath);
+      expect(dependents).toEqual([fileAFullPath]);
     });
   });
 });
