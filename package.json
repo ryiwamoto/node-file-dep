@@ -18,6 +18,6 @@
   "homepage": "https://github.com/ryiwamoto/node-file-dep",
   "dependencies": {
     "lodash": "^2.4.1",
-    "simple-dependency-graph": "git+https://github.com/ryiwamoto/simple-dependency-graph"
+    "simple-dependency-graph": "~0.0.2"
   }
 }
