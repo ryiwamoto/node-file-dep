@@ -1,6 +1,6 @@
 {
   "name": "node-file-dep",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "node-file-dep tracks dependencies between files in project.",
   "main": "index.js",
   "scripts": {
